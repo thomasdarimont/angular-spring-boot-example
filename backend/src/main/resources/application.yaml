@@ -1,0 +1,10 @@
+# url of the development frontend
+app:
+  dev:
+    frontend:
+      local: "http://localhost:4200"
+
+logging:
+  level:
+    mycompany:
+      myapp: "DEBUG"

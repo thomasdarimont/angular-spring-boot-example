@@ -1,0 +1,5 @@
+# Project exclude paths
+/frontend/.angular/
+/frontend/dist/
+/frontend/node_modules/
+target/

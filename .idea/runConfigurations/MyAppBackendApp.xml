@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MyAppBackendApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="backend" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="mycompany.myapp.backend.MyAppBackendApp" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="mycompany.myapp.backend.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
