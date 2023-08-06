@@ -12,6 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="myapp" target="1.5" />
       <module name="myapp-delivery" target="17" />
     </bytecodeTargetLevel>
   </component>

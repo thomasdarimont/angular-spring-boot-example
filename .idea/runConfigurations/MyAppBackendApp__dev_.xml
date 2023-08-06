@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="MyAppBackendApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+  <configuration default="false" name="MyAppBackendApp (dev)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="dev" />
     <module name="backend" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="mycompany.myapp.backend.MyAppBackendApp" />
     <extension name="coverage">

@@ -2,11 +2,10 @@ package mycompany.myapp.backend.messages.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mycompany.myapp.backend.messages.MessageItem;
+import mycompany.myapp.backend.messages.Message;
 import mycompany.myapp.backend.messages.MessageService;
-import mycompany.myapp.backend.messages.NewMessageItem;
+import mycompany.myapp.backend.messages.MessageInput;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,22 +18,21 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/myapp/messages")
-@CrossOrigin(origins = {"${app.dev.frontend.local}"})
-class MessagesResource {
+class MessageResource {
 
     private final MessageService messageService;
 
     @GetMapping
-    public ResponseEntity<List<MessageItem>> listMessages() {
+    public ResponseEntity<List<Message>> listMessages() {
         log.debug("List messages");
         var messages = messageService.getMessages();
         return ResponseEntity.ok(messages);
     }
 
     @PostMapping
-    public ResponseEntity<?> createMessage(@RequestBody NewMessageItem newItem) {
+    public ResponseEntity<?> createMessage(@RequestBody MessageInput input) {
         log.debug("Create message");
-        messageService.createMessage(newItem);
+        messageService.createMessage(input);
         return ResponseEntity.ok().build();
     }
 
