@@ -4,17 +4,20 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MessagesComponent} from './messages/messages.component';
+import {TOKEN_MESSAGES_SERVICE, MessagesServiceImpl} from "./messages/messages.service";
 
 @NgModule({
     declarations: [
         AppComponent,
-        MessagesComponent
+        MessagesComponent,
     ],
     imports: [
         BrowserModule,
         HttpClientModule
     ],
-    providers: [],
+    providers: [ //
+        {provide: TOKEN_MESSAGES_SERVICE, useClass: MessagesServiceImpl}
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

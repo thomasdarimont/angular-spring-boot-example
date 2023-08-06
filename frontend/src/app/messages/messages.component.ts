@@ -1,25 +1,28 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageItem} from "./MessageItem";
+import {Component, Inject, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {Message, TOKEN_MESSAGES_SERVICE, MessagesService} from "./messages.service";
 
 @Component({
     selector: 'app-messages',
     templateUrl: './messages.component.html',
     styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent implements OnInit {
+class MessagesComponent implements OnInit {
 
-    messages: MessageItem[] = [];
+    messages: Message[] = [];
 
-    constructor(private httpClient: HttpClient) {
+    constructor(@Inject(TOKEN_MESSAGES_SERVICE) private messageService: MessagesService) {
     }
 
     ngOnInit(): void {
-        this.getServerMessages().subscribe(messages => this.messages = messages);
+        this.fetchServerMessages();
     }
 
-    getServerMessages(): Observable<MessageItem[]> {
-        return this.httpClient.get<MessageItem[]>("api/myapp/messages");
+    fetchServerMessages() {
+        this.messageService.fetchServerMessages().subscribe(messages => {
+            return this.messages = messages;
+        });
     }
 }
+
+export {MessagesComponent, Message};

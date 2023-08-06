@@ -1,63 +1,55 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-// Http testing module and mocking controller
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-
+import {ngMocks} from 'ng-mocks';
 import {MessagesComponent} from './messages.component';
-import {HttpClient} from "@angular/common/http";
-import {MessageItem} from "./MessageItem";
+import {TOKEN_MESSAGES_SERVICE} from "./messages.service";
+import {MessagesServiceMock} from "./mock-messages.service";
+
+// auto spy
+ngMocks.autoSpy('jasmine');
 
 describe('MessagesComponent', () => {
+
     let component: MessagesComponent;
     let fixture: ComponentFixture<MessagesComponent>;
-    let httpClient: HttpClient;
-    let httpTestingController: HttpTestingController;
-
+    let messagesServiceMock: MessagesServiceMock;
 
     beforeEach(async () => {
-
         await TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            declarations: [MessagesComponent]
+            imports: [],
+            declarations: [MessagesComponent],
+            providers: [
+                // Provide the mock service using the same InjectionToken as the real service
+                {provide: TOKEN_MESSAGES_SERVICE, useClass: MessagesServiceMock}
+            ]
         }).compileComponents();
 
-        httpClient = TestBed.inject(HttpClient);
-        httpTestingController = TestBed.inject(HttpTestingController);
-
+        messagesServiceMock = TestBed.inject(TOKEN_MESSAGES_SERVICE) as MessagesServiceMock;
         fixture = TestBed.createComponent(MessagesComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {
-
-        const testData: MessageItem[] = [
+        // Set the messages directly in the service mock
+        messagesServiceMock.messages = [
             {
                 id: "1",
-                text: "Message 1"
+                text: "Message 1",
             },
             {
                 id: "2",
-                text: "Message 2"
+                text: "Message 2",
+            },
+            {
+                id: "3",
+                text: "Message 3",
             },
         ];
 
-        // Make an HTTP GET request
-        let messagesUrl = "/api/myapp/messages";
-        httpClient.get<MessageItem[]>(messagesUrl)
-            .subscribe(data =>
-                // When observable resolves, result should match test data
-                expect(data).toEqual(testData)
-            );
-
-        const req = httpTestingController.expectOne(messagesUrl);
-        expect(req.request.method).toEqual('GET');
-        req.flush(testData);
+        // Manually trigger the component to re-fetch the messages
+        fixture.detectChanges();
 
         expect(component).toBeTruthy();
-
-        // component.ngOnInit();
-        //
-        // expect(component.messages).toBeTruthy();
-        // expect(component.messages.length).toBe(2);
+        expect(component.messages).toBeTruthy();
+        expect(component.messages.length).toBe(3);
     });
 });
